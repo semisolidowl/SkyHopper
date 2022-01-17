@@ -1,80 +1,106 @@
 package model;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import processing.core.*;
 
 
 public class Player {
 
-	private int Xmove;
-	private int Ymove;
+	private float Xmove;
+	private float Ymove;
+	private float Xsize=75;
+	private float Ysize=105;
 	private int Score;
-	private int Speed;
+	private float Speed=(float) 5;
+	public float s;
+	
+
+	public Player(float xmove, float ymove) {
+		super();
+		Xmove = xmove;
+		Ymove = ymove;
+
+	}
+
+
+
+	public float getXmove() {
+		return Xmove;
+	}
+
+
+
+	public void setXmove(float xmove) {
+		Xmove = xmove;
+	}
+
+
+
+	public int getScore() {
+		return Score;
+	}
+
+
+
+	public void setScore(int score) {
+		Score = score;
+	}
+
+
+
+	public float getYmove() {
+		return Ymove;
+	}
+
+
+
+	public void setYmove(float ymove) {
+		Ymove = ymove;
+	}
+
+
+
+	public float getSpeed() {
+		return Speed;
+	}
+	
+	
+	public void DrawPlayer(PApplet proc) {
+		proc.rectMode(PApplet.CENTER);
+		proc.noStroke();
+		proc.fill(115,25,34);
+		proc.rect(Xmove,Ymove,Xsize,Ysize);
+		//uncaption this to see player hitbox(pink)
+		/*
+		proc.fill(215, 24, 245);
+		proc.rectMode(PApplet.CORNER);
+		proc.rect(Xmove-(Xsize/2),Ymove+(Ysize/2)-(Ysize-100),Xsize,Ysize-100);
+		*/
+	}
+
+	
+	public Rectangle2D hitBox() {
+		Rectangle2D fir = new Rectangle2D.Float(Xmove-(Xsize/2),Ymove+(Ysize/2)-(Ysize-100),Xsize,Ysize-100);
+		return fir;
+	}
+	
+	
 	
 	
 
-	  
-public void DrawPlayer(PApplet proc) {
-	proc.rectMode(proc.CENTER);
-	proc.noStroke();
-	proc.fill(115,25,34);
-	proc.rect(Xmove,Ymove,100,150);
-}
+	public void jump(PApplet proc) {
+		s=(float) (s+0.15);
+		Ymove=PApplet.min(Ymove+s,proc.height);		
+		
+		
+	}
 
 
-
-public Player(int xmove, int ymove) {
-	super();
-	Xmove = xmove;
-	Ymove = ymove;
-
-}
-
-
-
-public int getXmove() {
-	return Xmove;
-}
-
-
-
-public void setXmove(int xmove) {
-	Xmove = xmove;
-}
-
-
-
-public int getScore() {
-	return Score;
-}
-
-
-
-public void setScore(int score) {
-	Score = score;
-}
-
-
-
-public int getYmove() {
-	return Ymove;
-}
-
-
-
-public void setYmove(int ymove) {
-	Ymove = ymove;
-}
-
-
-
-public int getSpeed() {
-	return Speed;
-}
-
-
-
-
-
+	
+	
+	
+	
 
 	
 }
