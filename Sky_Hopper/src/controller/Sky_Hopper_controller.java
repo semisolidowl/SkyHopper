@@ -15,6 +15,14 @@ public class Sky_Hopper_controller extends PApplet{
 		PApplet.main("controller.Sky_Hopper_controller");
 
 	}
+	
+	enum GameState{
+		Title,InGame,GameOver
+	}
+	
+	
+	
+	
 	int platformCount=0;
 	Random rand = new Random();
 	ArrayList<Platform> platforms;
@@ -24,11 +32,11 @@ public class Sky_Hopper_controller extends PApplet{
 	
 	public void settings() {
 		size(600,900);
-	
 	}
 	
 	@Override
 	public void setup() {
+		GameState state=GameState.Title;
 		background(140, 230, 221);
 		frameRate(69);
 		platforms = new ArrayList<Platform>();
@@ -42,7 +50,7 @@ public class Sky_Hopper_controller extends PApplet{
 		background(140, 230, 221);
 		platgen();
 		screenMove();
-		
+		p1.setXmove();
 		p1.DrawPlayer(this);
 		for (Platform p : platforms) {
 			p.CreatePlatform(this);
@@ -57,8 +65,8 @@ public class Sky_Hopper_controller extends PApplet{
 	@Override
 	public void keyPressed() {
 		switch(keyCode) {
-		case LEFT: p1.setXmove(max(p1.getXmove() - p1.getSpeed(), 0)); break;
-		case RIGHT: p1.setXmove(min(p1.getXmove() + p1.getSpeed(), width)); break;
+		case LEFT: p1.setSpeed(max((float) (p1.getSpeed()-0.3),-3)); break;
+		case RIGHT: p1.setSpeed(min((float) (p1.getSpeed()+0.3),3)); break;
 		}
 		
 	}
@@ -77,8 +85,7 @@ public class Sky_Hopper_controller extends PApplet{
 	public void platgen(){
 		Platform currentP=platforms.get(platformCount);
 		int s=rand.nextInt(126)+75;		
-		Platform sp = new Platform(rand.nextInt(601-s)+s, -(rand.nextInt(300+1))+currentP.getYppos()-50,s);
-		platforms.add(sp);		
+		platforms.add(new Platform(rand.nextInt(601-s)+s, -(rand.nextInt(250+1))+currentP.getYppos()-50,s));		
 		platformCount++;
 	}
 	

@@ -12,7 +12,7 @@ public class Player {
 	private float Xsize=75;
 	private float Ysize=105;
 	private int Score;
-	private float Speed=(float) 5;
+	private float Speed=(float) 0;
 	public float s;
 	
 
@@ -27,12 +27,6 @@ public class Player {
 
 	public float getXmove() {
 		return Xmove;
-	}
-
-
-
-	public void setXmove(float xmove) {
-		Xmove = xmove;
 	}
 
 
@@ -66,6 +60,12 @@ public class Player {
 	}
 	
 	
+	public void setSpeed(float speed) {
+		Speed = speed;
+	}
+
+
+
 	public void DrawPlayer(PApplet proc) {
 		proc.rectMode(PApplet.CENTER);
 		proc.noStroke();
@@ -86,17 +86,19 @@ public class Player {
 	}
 	
 	
-	
-	
-
 	public void jump(PApplet proc) {
 		s=(float) (s+0.15);
-		Ymove=PApplet.min(Ymove+s,proc.height);		
-		
-		
+		Ymove=PApplet.min(Ymove+s,proc.height);			
 	}
 
-
+	public void setXmove() {
+		Xmove=Xmove+getSpeed();
+		if(getSpeed()<0){
+			setSpeed((float) (getSpeed()+0.1));
+		}else {
+			setSpeed((float) (getSpeed()-0.1));
+		}
+	}
 	
 	
 	
